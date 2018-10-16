@@ -289,6 +289,20 @@ function (Okta) {
     return result.join(' ');
   };
 
+  fn.getCardinalityText = function (enrolled, required, policy) {
+    if (policy && policy.enrollment) {
+      var enrollmentInfo = policy.enrollment;
+      if (enrolled) {
+        return (enrollmentInfo.enrolled === 1) ? '' :
+          Okta.loc('enroll.choices.cardinality.setup', 'login', [enrollmentInfo.enrolled]);
+      }
+      else if (required) {
+        return Okta.loc('enroll.choices.cardinality.setup.remaining', 'login',
+          [enrollmentInfo.enrolled, enrollmentInfo.minimum]);
+      }
+    }
+    return '';
+  };
 
   return fn;
 });
