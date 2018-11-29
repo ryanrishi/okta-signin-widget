@@ -21,7 +21,8 @@ module.exports = function (outputFilename) {
       alias: {
         // General remapping
         'nls': '@okta/i18n/dist/json',
-        'okta': `${LOCAL_PACKAGES}/@okta/courage-for-signin-widget.js`,
+        'okta': `${LOCAL_PACKAGES}/@okta/courage-dist/okta.js`,
+        'jquery': `${LOCAL_PACKAGES}/@okta/courage-dist/jquery.js`,
         'shared/util/Bundles': 'util/Bundles',
 
         // Vendor files from courage that are remapped in OSW to point to an npm
@@ -41,7 +42,7 @@ module.exports = function (outputFilename) {
         // Babel
         {
           test: /\.js$/,
-          exclude: /node_modules/,
+          exclude: /node_modules|jquery/,
           loader: 'babel-loader',
           query: {
             presets: ['env'],

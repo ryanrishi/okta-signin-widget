@@ -22,13 +22,6 @@ var entryConfig = config('okta-sign-in.entry.js');
 entryConfig.output.filename = 'okta-sign-in.entry.js';
 entryConfig.externals = {
   '@okta/okta-auth-js/jquery': true,
-  'backbone': true,
-  'jquery': {
-    'commonjs': 'jquery',
-    'commonjs2': 'jquery',
-    'amd': 'jquery',
-    'root': 'jQuery'
-  },
   'handlebars': {
     'commonjs': 'handlebars/dist/handlebars',
     'commonjs2': 'handlebars/dist/handlebars',
@@ -36,8 +29,7 @@ entryConfig.externals = {
     'root': 'handlebars'
   },
   'q': true,
-  'u2f-api-polyfill': true,
-  'underscore': true
+  'u2f-api-polyfill': true
 };
 entryConfig.plugins = plugins({ isProduction: false, analyzerFile: 'okta-sign-in.entry.analyzer' });
 
@@ -46,22 +38,9 @@ var cdnConfig = config('okta-sign-in.min.js');
 cdnConfig.entry.unshift('babel-polyfill');
 cdnConfig.plugins = plugins({ isProduction: true, analyzerFile: 'okta-sign-in.min.analyzer' });
 
-// 3. noJqueryConfig
-var noJqueryConfig = config('okta-sign-in-no-jquery.js');
-noJqueryConfig.entry = cdnConfig.entry;
-noJqueryConfig.plugins = cdnConfig.plugins;
-noJqueryConfig.externals = {
-  'jquery': {
-    'commonjs': 'jquery',
-    'commonjs2': 'jquery',
-    'amd': 'jquery',
-    'root': 'jQuery'
-  }
-};
-
-// 4. devConfig
+// 3. devConfig
 var devConfig = config('okta-sign-in.js');
 devConfig.entry.unshift('babel-polyfill');
 devConfig.plugins = plugins({ isProduction: false, analyzerFile: 'okta-sign-in.analyzer' });
 
-module.exports = [entryConfig, cdnConfig, noJqueryConfig, devConfig];
+module.exports = [entryConfig, cdnConfig, devConfig];
