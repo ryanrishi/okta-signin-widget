@@ -4,8 +4,7 @@ const { BannerPlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const PARENT_DIR = resolve(__dirname, '../');
-const PUBLIC_DIR = `${PARENT_DIR}/courage-dist`;
+const PUBLIC_DIR = resolve(__dirname, '../courage-dist');
 const PACKAGE_JSON = require('./package.json');
 const EMPTY = resolve(__dirname, 'src/empty');
 const SHARED_JS = resolve(__dirname, 'node_modules/@okta/courage/src');
