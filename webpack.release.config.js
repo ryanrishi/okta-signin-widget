@@ -21,6 +21,7 @@ var plugins = require('./buildtools/webpack/plugins');
 var entryConfig = config('okta-sign-in.entry.js');
 entryConfig.output.filename = 'okta-sign-in.entry.js';
 entryConfig.externals = {
+  'backbone': true,
   'handlebars': {
     'commonjs': 'handlebars/dist/handlebars',
     'commonjs2': 'handlebars/dist/handlebars',
@@ -37,9 +38,22 @@ var cdnConfig = config('okta-sign-in.min.js');
 cdnConfig.entry.unshift('babel-polyfill');
 cdnConfig.plugins = plugins({ isProduction: true, analyzerFile: 'okta-sign-in.min.analyzer' });
 
-// 3. devConfig
+// 3. noJqueryConfig
+var noJqueryConfig = config('okta-sign-in-no-jquery.js');
+noJqueryConfig.entry = cdnConfig.entry;
+noJqueryConfig.plugins = plugins({ isProduction: true, analyzerFile: 'okta-sign-in-no-jquery.analyzer' });
+noJqueryConfig.externals = {
+  'jquery': {
+    'commonjs': 'jquery',
+    'commonjs2': 'jquery',
+    'amd': 'jquery',
+    'root': 'jQuery'
+  }
+};
+
+// 4. devConfig
 var devConfig = config('okta-sign-in.js');
 devConfig.entry.unshift('babel-polyfill');
 devConfig.plugins = plugins({ isProduction: false, analyzerFile: 'okta-sign-in.analyzer' });
 
-module.exports = [entryConfig, cdnConfig, devConfig];
+module.exports = [entryConfig, cdnConfig, noJqueryConfig, devConfig];
